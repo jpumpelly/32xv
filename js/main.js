@@ -79,7 +79,7 @@ $(window).resize(resize)
 			stars.push({ sprite: tempStar, x: tempStar.position.x, y: tempStar.position.y, yvel: yv, rvel: rv, scale: tscale, reset: false});
 
 			stage.addChild(tempStar);
-			tempStar.blendMode = PIXI.blendModes.SCREEN;
+			tempStar.blendMode = PIXI.blendModes.ADD;
 			
 		}
 		starCount += num;
@@ -129,8 +129,8 @@ $(window).resize(resize)
 			stars[i].y = stars[i].y * stars[i].yvel - 1;
 			
 			var scaler = (stars[i].yvel - 1) * .3 + .0015;
-			stars[i].sprite.scale.x -= scaler * 2.5;
-			stars[i].sprite.scale.y -= scaler * 2.5;
+			stars[i].sprite.scale.x -= scaler * 19.5;
+			stars[i].sprite.scale.y -= scaler * 19.5;
 			stars[i].sprite.alpha -= scaler;
 			stars[i].sprite.rotation += stars[i].rvel;
 
