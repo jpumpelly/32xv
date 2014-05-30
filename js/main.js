@@ -19,6 +19,8 @@ $(window).resize(resize)
 	var tic = Math.random() * 3;
 	var toc = Math.random() * 3;
 	
+	var stats = new Stats();
+	
 	var starshoTexture = new PIXI.Texture.fromImage("assets/starsho.png");
 	var streaksTexture = new PIXI.Texture.fromImage("assets/streaks.png");
 	var bluefTexture = new PIXI.Texture.fromImage("assets/bluefadey.png");
@@ -27,19 +29,19 @@ $(window).resize(resize)
 
 	function start() {
 		
-		
-		renderer = PIXI.autoDetectRenderer(w, h, null, true, true);
+		renderer = PIXI.autoDetectRenderer(w, h);
 		stage = new PIXI.Stage(0x66FF99);
 		
 		var gradTexture = new PIXI.Texture.fromImage("assets/grad.png");
 		bkgSprite = new PIXI.Sprite(gradTexture);
 		stage.addChild(bkgSprite);
 
+		
 		document.body.appendChild(renderer.view);
 		renderer.view.style.position = "absolute";
 		renderer.view.style.top = "30px";
 		renderer.view.style.left = "0px";
-
+		
 		addOrgans (200);
 
 		var addStuff = document.getElementById('more');
@@ -48,6 +50,11 @@ $(window).resize(resize)
 
 		resize();
 
+		
+		document.body.appendChild( stats.domElement );
+		stats.domElement.style.position = "absolute";
+		stats.domElement.style.top = "0px";
+		
 		requestAnimFrame(update);
 	}
 	
@@ -88,11 +95,15 @@ $(window).resize(resize)
 		slideY = h;
 		bkgSprite.width = w;
 		bkgSprite.height = h;
-
+		
+		stats.domElement.style.left = w - 80 + "px";
+		stats.domElement.style.top = 0 + "px";
+		
 		renderer.resize(w, h);
 	}
 
 	function update() {
+		stats.begin();
 		tic += .00043;
 		toc += .00263;
 		sx = (Math.sin(tic) - Math.cos(toc)) *.051 + 1;
@@ -146,4 +157,5 @@ $(window).resize(resize)
 		renderer.render(stage);
 
 		requestAnimFrame(update);
+		stats.end();
 	}
